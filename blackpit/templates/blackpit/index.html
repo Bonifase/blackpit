@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <title>Sandpit</title>
+    <style>
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+          <div id="infovizDiv">
+            <svg style="width:500px;height:500px;border:1px lightgray solid;">
+            <path d="M 10,60 40,30 50,50 60,30 70,80" />
+            <polygon class="inactive" points="80,400 120,400 160,440 120,480 60,460" /> <g>
+            <circle class="active tentative" cy="100" cx="200" r="30"/> 
+            <rect class="active" x="410" y="200" width="100" height="50" /> </g>
+            </svg>
+          </div>
+        </div>
+        <div class="row" id="cities">
+          <h1>Cities</h1>
+
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                {% for field in fields %}
+                <th scope="col">{{ field }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for record in records %}
+              <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                {% for k, value in record.items %}
+                <td>{{ value }}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script>
+      var incomingData = {{formattedData|safe}}
+      d3.json("{% url "vaccinated" %}", function(error, data){
+
+        console.log("data", data);
+    
+        data.forEach(function(d) {
+            console.log("record", d);
+        });
+      });
+    </script>
+</body>
+</html>
