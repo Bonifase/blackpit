@@ -19,5 +19,5 @@ def get_records(file_name):
     return data
 
 def get_vaccinated():
-        records = get_records("populated-african-countries-vs-total-vaccinated-population.csv")
-        
+        records = get_records(settings.VACCINATED_POPULATION)
+        return records

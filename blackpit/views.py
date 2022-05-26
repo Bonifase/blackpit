@@ -14,14 +14,14 @@ paginator = Pagination()
 def index(request):
     template = 'blackpit/index.html'
     context = dict()
-    records = get_records("populated-african-countries-vs-total-vaccinated-population.csv")
+    records = get_vaccinated()
+    vaccinated = json.dumps(records)
+    print(vaccinated)
     if len(records) > 0:
-        fields = list(records[0].keys())
-        formattedData = json.dumps(records)
         context = {
             'records': records, 
-            "fields": fields, 
-            "formattedData": formattedData
+            "fields": list(records[0].keys()), 
+            "vaccinated": vaccinated
         }
     return render(request, template, context=context)
 
